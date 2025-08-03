@@ -14,9 +14,6 @@ RUN apt update && apt install -y \
     sudo \
     && rm -rf /var/lib/apt/lists/*
 
-# Set up rosdep
-RUN rosdep update
-
 # Create a non-root user with a different UID
 ARG USERNAME=ros2dev
 ARG USER_UID=1001
@@ -26,6 +23,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
+
+# Set up rosdep
+USER $USERNAME
+RUN rosdep update
 
 # Set workspace
 WORKDIR /ros2_ws
