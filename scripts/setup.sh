@@ -1,7 +1,9 @@
 #!/bin/bash
-# Quick setup script
-
 echo "Setting up ROS2 development environment..."
+
+# Export host UID/GID for docker-compose
+export UID=$(id -u)
+export GID=$(id -g)
 
 # Create workspace structure
 mkdir -p src scripts
