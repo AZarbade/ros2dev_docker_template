@@ -3,19 +3,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: ros2-jazzy-dev
+    container_name: ros2-${PROJECT_NAME:-default}-dev
     volumes:
       - ./src:/ros2_ws/src
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - ros2_bash_history:/home/user/.bash_history_volume
     environment:
       - DISPLAY=${DISPLAY}
-      - HISTFILE=/home/user/.bash_history_volume/.bash_history
     network_mode: host
     stdin_open: true
     tty: true
     working_dir: /ros2_ws
-    user: "${UID:-1000}:${GID:-1000}"  # Use host UID/GID
-
-volumes:
-  ros2_bash_history:
+    user: "${USER_UID:-1000}:${USER_GID:-1000}"

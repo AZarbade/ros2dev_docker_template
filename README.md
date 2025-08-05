@@ -1,23 +1,26 @@
-# ROS2 Development Environment Template
+# demo
 
-### Quick Start
+ROS2 project using Jazzy distribution.
 
-1. Run setup:
-    ```bash
-    ./scripts/setup.sh
-    ```
-2. Enter development environment:
-    ```bash
-    ./scripts/dev.sh start
-    ./scripts/dev.sh shell
-    ```
-
-### Usage
+## Quick Start
 
 ```bash
-./scripts/dev.sh start     # Start containers
-./scripts/dev.sh shell     # Enter development shell
-./scripts/dev.sh build     # Build workspace
-./scripts/dev.sh clean     # Clean build artifacts
-./scripts/dev.sh stop      # Stop containers
+# Start development environment
+./ros2dev start
+
+# Open shell
+./ros2dev shell
+
+# Create a package
+./ros2dev create cpp my_package
+
+# Build workspace
+./ros2dev build
+
+# Stop environment
+./ros2dev stop
 ```
+
+## Available Commands
+
+Run `./ros2dev help` to see all available commands.

@@ -16,12 +16,12 @@ RUN apt update && apt install -y \
 
 # Set workspace
 WORKDIR /ros2_ws
-RUN mkdir -p src
+RUN mkdir -p src build install log
 
 # Set up rosdep as root, then it's available for all users
 RUN rosdep update
 
-# Source ROS2 in system-wide profile
+# Source ROS2 in system-wide profile for bash
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /etc/bash.bashrc && \
     echo "if [ -f /ros2_ws/install/setup.bash ]; then source /ros2_ws/install/setup.bash; fi" >> /etc/bash.bashrc
 
@@ -37,5 +37,8 @@ if [ "$(ls -A src)" ]; then\n\
 else\n\
     echo "No packages found in src directory"\n\
 fi' > /usr/local/bin/build_ws && chmod +x /usr/local/bin/build_ws
+
+# Make sure the workspace directories are writable by any user
+RUN chmod -R 777 /ros2_ws
 
 CMD ["/bin/bash"]
