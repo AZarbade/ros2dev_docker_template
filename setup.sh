@@ -83,7 +83,7 @@ EOF
 		else
 			log_info "Setting up ROS2 dev template..."
 			# Download template (using git subtree approach)
-			git subtree add --prefix=.ros2dev https://github.com/AZarbade/ros2dev_docker_template.git main --squash 2>/dev/null || {
+			git subtree add --prefix=.ros2dev https://github.com/AZarbade/ros2dev_docker_template.git master --squash 2>/dev/null || {
 				log_error "Failed to download ROS2 dev template. Please ensure git is available and you have internet access."
 				exit 1
 			}
