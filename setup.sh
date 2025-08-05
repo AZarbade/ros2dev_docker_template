@@ -73,30 +73,34 @@ USER_UID=$(id -u)
 USER_GID=$(id -g)
 EOF
 
-	# Check if templates exist locally first, then try to download/setup
-	if [ ! -f "$DOCKERFILE" ]; then
-		if [ -d ".ros2dev" ]; then
-			cp .ros2dev/Dockerfile "$DOCKERFILE" || {
-				log_error "Failed to copy Dockerfile from .ros2dev/"
-				exit 1
-			}
-		else
-			log_info "Setting up ROS2 dev template..."
-			# Download template (using git subtree approach)
-			git subtree add --prefix=.ros2dev https://github.com/AZarbade/ros2dev_docker_template.git master --squash 2>/dev/null || {
-				log_error "Failed to download ROS2 dev template. Please ensure git is available and you have internet access."
-				exit 1
-			}
-			cp .ros2dev/Dockerfile "$DOCKERFILE"
-		fi
-	fi
-
-	if [ ! -f "$COMPOSE_FILE" ]; then
-		cp .ros2dev/docker-compose.yml "$COMPOSE_FILE" || {
-			log_error "Failed to copy docker-compose.yml from .ros2dev/"
-			exit 1
-		}
-	fi   
+    # Check if templates exist locally first, then try to download/setup
+    if [ ! -f "$DOCKERFILE" ] || [ ! -f "$COMPOSE_FILE" ]; then
+        if [ ! -d ".ros2dev" ]; then
+            log_info "Setting up ROS2 dev template..."
+            # Simple clone approach
+            git clone https://github.com/AZarbade/ros2dev_docker_template.git .ros2dev || {
+                log_error "Failed to download ROS2 dev template. Please ensure git is available and you have internet access."
+                exit 1
+            }
+            rm -rf .ros2dev/.git
+        fi
+        
+        # Copy Dockerfile if missing
+        if [ ! -f "$DOCKERFILE" ]; then
+            cp .ros2dev/Dockerfile "$DOCKERFILE" || {
+                log_error "Failed to copy Dockerfile from .ros2dev/"
+                exit 1
+            }
+        fi
+        
+        # Copy docker-compose.yml if missing  
+        if [ ! -f "$COMPOSE_FILE" ]; then
+            cp .ros2dev/docker-compose.yml "$COMPOSE_FILE" || {
+                log_error "Failed to copy docker-compose.yml from .ros2dev/"
+                exit 1
+            }
+        fi
+    fi
 
     # Create .gitignore
     cat > .gitignore << 'EOF'
@@ -104,7 +108,6 @@ EOF
 build/
 install/
 log/
-
 # Docker
 .env
 EOF
@@ -251,8 +254,8 @@ case "$1" in
         docker-compose restart ros2-dev
         log_success "Environment restarted"
         ;;
-	
-	"remove")
+    
+    "remove")
         if ! is_project_initialized; then
             log_error "Project not initialized"
             exit 1
