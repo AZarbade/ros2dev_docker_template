@@ -2,6 +2,9 @@
 
 A streamlined Docker-based development environment for ROS2 projects that can be easily integrated into any project structure.
 
+> ⚠️ **Highly experimental!** Only use after understanding what this project is doing.  
+> Developed on **Arch Linux**; other operating systems not tested.
+
 ## Features
 
 - **Project Agnostic**: Works in any directory structure - just drop it where you need ROS2 development
