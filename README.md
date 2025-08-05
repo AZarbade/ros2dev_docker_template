@@ -14,18 +14,18 @@ A streamlined Docker-based development environment for ROS2 projects that can be
 - **GUI Support**: X11 forwarding for RViz, Gazebo, and other GUI tools
 - **ROS2 Jazzy**: Latest LTS distribution with full desktop installation
 
-## Quick Start
+## How I use this system
 
 ```bash
-# Navigate to your desired development location
-cd path/to/your/project/ros-component
+# Go to the desired project
+cd project/control/ros_control/
 
 # Get the setup script
 curl -o setup.sh https://raw.githubusercontent.com/AZarbade/ros2dev_docker_template/master/setup.sh
 chmod +x setup.sh
 
 # Initialize ROS2 development environment
-./setup.sh init my_project
+./setup.sh init project_name_for_ros
 
 # Start the container
 ./setup.sh start
@@ -62,8 +62,8 @@ your-location/
 ├── setup.sh            # Management script
 ├── Dockerfile          # Container definition
 ├── docker-compose.yml  # Service configuration
-├── .env               # Project variables
-└── .gitignore         # Git ignore rules
+├── .env                # Project variables
+└── .gitignore          # Git ignore rules
 ```
 
 ## Requirements
