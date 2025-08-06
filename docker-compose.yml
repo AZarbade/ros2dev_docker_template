@@ -13,4 +13,4 @@ services:
     stdin_open: true
     tty: true
     working_dir: /ros2_ws
-    user: "${USER_UID:-1000}:${USER_GID:-1000}"
+    # user: "${USER_UID:-1000}:${USER_GID:-1000}"  # Comment this out

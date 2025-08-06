@@ -69,8 +69,6 @@ init_project() {
     cat > "$ENV_FILE" << EOF
 PROJECT_NAME=$project_name
 COMPOSE_PROJECT_NAME=$project_name
-USER_UID=$(id -u)
-USER_GID=$(id -g)
 EOF
 
     # Check if templates exist locally first, then try to download/setup
@@ -298,7 +296,7 @@ case "$1" in
             exit 0
         fi
         
-        local project_name=$(get_project_name)
+        project_name=$(get_project_name)
         echo "Project: $project_name"
         echo "Directory: $(pwd)"
         
