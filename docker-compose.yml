@@ -7,10 +7,15 @@ services:
     volumes:
       - ./src:/ros2_ws/src
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev/dri:/dev/dri:rw
     environment:
       - DISPLAY=${DISPLAY}
+      - XDG_RUNTIME_DIR=/tmp/runtime-dir
+    devices:
+      - /dev/dri:/dev/dri
     network_mode: host
     stdin_open: true
     tty: true
     working_dir: /ros2_ws
+    privileged: true
     # user: "${USER_UID:-1000}:${USER_GID:-1000}"  # Comment this out

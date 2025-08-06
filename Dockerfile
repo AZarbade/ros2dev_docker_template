@@ -14,6 +14,10 @@ RUN apt update && apt install -y \
     sudo \
     && rm -rf /var/lib/apt/lists/*
 
+# Set up GUI environment
+ENV XDG_RUNTIME_DIR=/tmp/runtime-dir
+RUN mkdir -p /tmp/runtime-dir && chmod 700 /tmp/runtime-dir
+
 # ROS 2 workspace
 WORKDIR /ros2_ws
 RUN mkdir -p src build install log
