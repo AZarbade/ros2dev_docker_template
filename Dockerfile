@@ -18,8 +18,8 @@ RUN apt update && apt install -y \
 WORKDIR /ros2_ws
 RUN mkdir -p src build install log
 
-# rosdep init + update (as root, only once)
-RUN rosdep init && rosdep update
+# rosdep update (as root, only once)
+RUN rosdep update
 
 # Source ROS setup in bashrc for all users
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /etc/bash.bashrc && \
