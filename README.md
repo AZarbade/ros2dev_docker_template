@@ -21,7 +21,7 @@ A streamlined Docker-based development environment for ROS2 projects that can be
 cd project/control/ros_control/
 
 # Get the setup script
-curl -o setup.sh https://raw.githubusercontent.com/AZarbade/ros2dev_docker_template/master/setup.sh
+curl -o setup.sh https://raw.githubusercontent.com/AZarbade/ros2dev_docker_template/refs/heads/master/setup.sh
 chmod +x setup.sh
 
 # Initialize ROS2 development environment
